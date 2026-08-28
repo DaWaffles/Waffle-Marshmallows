@@ -10,6 +10,7 @@
 //./build/my_project
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);  
+void processInput(GLFWwindow *window);
 
 int main() {
   glfwInit();
@@ -38,6 +39,13 @@ int main() {
   glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);  
 
   while (!glfwWindowShouldClose(window)) {
+    processInput(window);
+
+
+    glClearColor(0.392f, 0.584f, 0.929f, 1.0f); // Cornflower blue
+    glClear(GL_COLOR_BUFFER_BIT);
+
+
     glfwSwapBuffers(window);
     glfwPollEvents();
   }
@@ -51,4 +59,10 @@ int main() {
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
   glViewport(0, 0, width, height);
+}
+
+void processInput(GLFWwindow *window)
+{
+    if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+        glfwSetWindowShouldClose(window, true);
 }
