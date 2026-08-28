@@ -1,0 +1,4 @@
+build/
+.git/
+vcpkg.json
+vcpkg-configuration.json
