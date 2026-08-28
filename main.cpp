@@ -1,10 +1,15 @@
 #include <iostream>
+
+#define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>
+#include <glad/glad.h>
 
 
 //cmake -B build -S . -DCMAKE_TOOLCHAIN_FILE=$VCPKG_ROOT/scripts/buildsystems/vcpkg.cmake
 //cmake --build build
 //./build/my_project
+
+void framebuffer_size_callback(GLFWwindow* window, int width, int height);  
 
 int main() {
   glfwInit();
@@ -22,13 +27,28 @@ int main() {
   }
 
   glfwMakeContextCurrent(window);
+  
+  if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+  {
+    std::cout << "Failed to initialize GLAD" << '\n';
+    return -1;
+  }
+
+  glViewport(0, 0, 800, 600);
+  glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);  
 
   while (!glfwWindowShouldClose(window)) {
     glfwSwapBuffers(window);
     glfwPollEvents();
   }
 
+  glfwTerminate();
+
   std::cout << "Program End" << '\n';
 
   return 0;
+}
+
+void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
+  glViewport(0, 0, width, height);
 }
